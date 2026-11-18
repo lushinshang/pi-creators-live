@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230f7b6c%27/%3E%3Cpath d=%27M12 46 26 30l8 8 18-22%27 stroke=%27white%27 stroke-width=%277%27 fill=%27none%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
+<title>寫出不爛的程式碼：Pi 兩位創作者的直播對談（非官方繁中譯文）</title>
+<meta name="description" content="Matt Pocock 直播訪談 Pi coding agent 創作者 Mario Zechner 與 Armin Ronacher 的全文繁體中文譯文，採台灣用語；非官方翻譯（AI 模型翻譯與審校），依機器自動字幕，未經人工校稿。">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:title" content="寫出不爛的程式碼：Pi 兩位創作者的直播對談（非官方繁中譯文）">
+<meta property="og:description" content="Matt Pocock 直播訪談 Pi coding agent 創作者 Mario Zechner 與 Armin Ronacher 的全文繁體中文譯文，採台灣用語；非官方翻譯（AI 模型翻譯與審校），依機器自動字幕，未經人工校稿。">
+<meta property="og:image" content="https://lushinshang.github.io/pi-creators-live/images/og-hero.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AI 生成的封面：檯燈照亮的工作桌上有一把鏟子，遠處昏暗工廠裡有幾個發光眼睛的機器人，門口站著提燈籠的人影">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="寫出不爛的程式碼：Pi 兩位創作者的直播對談（非官方繁中譯文）">
+<meta name="twitter:description" content="Matt Pocock 直播訪談 Pi coding agent 創作者 Mario Zechner 與 Armin Ronacher 的全文繁體中文譯文，採台灣用語；非官方翻譯（AI 模型翻譯與審校），依機器自動字幕，未經人工校稿。">
+<meta name="twitter:image" content="https://lushinshang.github.io/pi-creators-live/images/og-hero.jpg">
+<meta property="og:url" content="https://lushinshang.github.io/pi-creators-live/translation-zh.html">
+<style>
+:root{
+  --bg:#f9f7f4; --surface:#fffdf9; --ink:#1a1a1a; --muted:#5f5b54; --line:#e4dfd6;
+  --accent:#0f7b6c; --accent-ink:#0b5c51; --note:#f0ebe1; --code:#ece6d8; --link:#1f5f99;
+  --card:#fff6e8; --card-line:#e8c99a; --shadow:0 6px 24px rgba(40,30,10,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#1b1a18; --surface:#26241f; --ink:#ece8de; --muted:#aaa497; --line:#3a3730;
+    --accent:#4fc1ad; --accent-ink:#7fd6c6; --note:#2f2c25; --code:#33302a; --link:#8fbde8;
+    --card:#2d2820; --card-line:#5b4a30; --shadow:0 6px 24px rgba(0,0,0,.35);}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);overflow-x:hidden;
+  font:17px/1.7 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;letter-spacing:0}
+.skip{position:absolute;left:-999px;top:0;background:var(--accent);color:#fff;padding:8px 14px;z-index:300}
+.skip:focus{left:8px;top:8px}
+nav.toc{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.toc ul{list-style:none;margin:0 auto;padding:0 16px;max-width:1120px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  white-space:nowrap;-webkit-overflow-scrolling:touch;min-height:52px;align-items:center}
+nav.toc ul::-webkit-scrollbar{display:none}
+nav.toc a{display:inline-block;padding:8px 12px;border-radius:999px;color:var(--muted);text-decoration:none;font-size:14px;min-height:36px}
+nav.toc a:hover,nav.toc a:focus-visible{background:var(--note);color:var(--ink)}
+a{color:var(--link);overflow-wrap:anywhere}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.page{max-width:1120px;margin:0 auto;padding:0 20px 80px}
+header.hero{padding:56px 0 8px;text-align:center}
+.eyebrow{margin:0 0 8px;color:var(--accent-ink);font-weight:700;letter-spacing:0;font-size:14px}
+h1{margin:0 auto 14px;max-width:820px;font-size:clamp(1.7rem,1.2rem + 2vw,2.6rem);line-height:1.3;text-wrap:balance}
+.byline{margin:0 0 6px;color:var(--muted);font-size:14px}
+.video-link{margin:0 0 28px;font-size:14px}
+figure{margin:32px 0}
+figure img{display:block;width:100%;height:auto;aspect-ratio:var(--ar-d,16/9);object-fit:contain;border-radius:12px;
+  box-shadow:var(--shadow);background:var(--surface);cursor:zoom-in}
+@media (max-width:640px){figure picture img{aspect-ratio:var(--ar-m,9/16)}}
+@media (max-width:640px){figure.hero-figure picture img{max-width:300px;margin:0 auto}}
+figure.hero-figure{max-width:720px;margin-left:auto;margin-right:auto}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+p.figcap{margin:-18px auto 1.4em;text-align:center;font-size:14px;color:var(--muted)}
+figcaption{margin:10px auto 0;max-width:720px;font-size:14px;line-height:1.55;color:var(--muted);text-align:center}
+article{max-width:720px;margin:0 auto}
+article figure.section-figure{margin-left:50%;transform:translateX(-50%);width:min(860px,calc(100vw - 32px))}
+h2{margin:56px 0 12px;font-size:1.55rem;line-height:1.4;scroll-margin-top:72px;text-wrap:balance;
+  border-left:5px solid var(--accent);padding-left:14px;margin-left:-19px}
+h3{margin:36px 0 8px;font-size:1.2rem;line-height:1.45}
+p{margin:0 0 1.1em}
+ul,ol{margin:0 0 1.2em;padding-left:1.4em}
+li{margin:.35em 0}
+strong{font-weight:700}
+code{background:var(--code);padding:.1em .4em;border-radius:5px;font:0.9em ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-word}
+section.summary-card{background:var(--card);border:1px solid var(--card-line);border-radius:14px;padding:6px 22px 10px;margin:24px 0 8px;box-shadow:var(--shadow)}
+section.summary-card h2{margin:14px 0 8px;font-size:1.2rem;border-left:0;padding-left:0;margin-left:0}
+section.summary-card p{margin:0 0 .8em;font-size:16.5px}
+ol.takeaways{padding-left:1.6em}
+ol.takeaways li{margin:.8em 0;padding-left:.2em}
+ol.takeaways li::marker{color:var(--accent-ink);font-weight:700}
+ul.sources li{overflow-wrap:anywhere}
+aside.note{background:var(--note);border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px;margin:0 0 1.6em;font-size:15px;color:var(--ink)}
+aside.note p,aside.note ul{margin:0 0 .6em}
+aside.note ul{padding-left:1.3em}
+figure.diagram{margin:28px 0}
+.mermaid-scroll{overflow-x:auto;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;-webkit-overflow-scrolling:touch}
+.mermaid-scroll pre{margin:0;font:14px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre;color:var(--ink)}
+.mermaid-scroll svg{display:block;margin:0 auto;height:auto;max-width:100%}
+.table-scroll{overflow-x:auto;margin:0 0 1.6em;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.table-scroll table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px;line-height:1.55}
+.table-scroll th,.table-scroll td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.table-scroll th{background:var(--note);font-weight:700}
+.table-scroll tr:last-child td{border-bottom:0}
+.table-scroll td.k{font-weight:600;white-space:nowrap}
+.table-scroll td.nw{white-space:nowrap}
+.table-scroll.wide{margin-left:50%;transform:translateX(-50%);width:min(1040px,calc(100vw - 32px))}
+@media (max-width:640px){.table-scroll.wide{margin-left:0;transform:none;width:auto}}
+@media (max-width:640px){
+  .table-scroll{overflow-x:visible}
+  .table-scroll table{min-width:0}
+  .table-scroll thead{position:absolute;left:-9999px}
+  .table-scroll tr,.table-scroll td{display:block}
+  .table-scroll tr{padding:10px 12px;border-bottom:1px solid var(--line)}
+  .table-scroll tr:last-child{border-bottom:0}
+  .table-scroll td{padding:2px 0;border:0}
+  .table-scroll td.k{color:var(--accent-ink);white-space:normal}
+  .table-scroll td.nw{white-space:normal}
+  .table-scroll td::before{content:attr(data-label) "：";font-weight:700;color:var(--muted);font-size:13px}
+}
+
+p.lede{margin:0 auto 10px;max-width:760px;color:var(--muted);font-size:16px;line-height:1.65}
+footer{max-width:720px;margin:64px auto 0;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(20,18,14,.9);align-items:center;justify-content:center;padding:24px}
+.lightbox.is-open{display:flex}
+.lightbox img{max-width:96vw;max-height:90vh;width:auto;height:auto;border-radius:8px;box-shadow:0 12px 48px rgba(0,0,0,.5);background:#fff}
+.lightbox button{position:absolute;top:14px;right:14px;min-width:44px;min-height:44px;padding:8px 14px;border:0;border-radius:999px;
+  background:#fff;color:#222;font-size:15px;cursor:pointer}
+@media (max-width:760px){
+  h2{margin-left:0;border-left:0;padding-left:0;border-top:3px solid var(--accent);padding-top:10px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .page{padding:0 16px 64px}
+  header.hero{padding-top:36px}
+  h2{font-size:1.35rem}
+  section.summary-card{padding:4px 16px 8px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<nav class="toc" aria-label="章節導覽"><ul><li><a href="#sec-1" title="章節 1：開場：兩位來賓自我介紹（00:00）">章節 1：開場：兩位來賓自我介紹</a></li><li><a href="#sec-2" title="章節 2：Opus 5.5 之後：能放手的任務變多了（00:50）">章節 2：Opus 5.5 之後：能放手的任務變多了</a></li><li><a href="#sec-3" title="章節 3：Mario：沒變好的與變好的（03:12）">章節 3：Mario：沒變好的與變好的</a></li><li><a href="#sec-4" title="章節 4：戰術與策略：做不到的事與領域知識（05:13）">章節 4：戰術與策略：做不到的事與領域知識</a></li><li><a href="#sec-5" title="章節 5：初學者該學什麼（09:26）">章節 5：初學者該學什麼</a></li><li><a href="#sec-6" title="章節 6：程式碼變便宜之後的品質（10:37）">章節 6：程式碼變便宜之後的品質</a></li><li><a href="#sec-7" title="章節 7：信任：Pi 怎麼用 agent（13:36）">章節 7：信任：Pi 怎麼用 agent</a></li><li><a href="#sec-8" title="章節 8：還讀多少程式碼（18:26）">章節 8：還讀多少程式碼</a></li><li><a href="#sec-9" title="章節 9：「驗證被高估」（21:03）">章節 9：「驗證被高估」</a></li><li><a href="#sec-10" title="章節 10：對抗式審查與過度防禦的程式碼（25:44）">章節 10：對抗式審查與過度防禦的程式碼</a></li><li><a href="#sec-11" title="章節 11：系統設計：手感與取捨（29:31）">章節 11：系統設計：手感與取捨</a></li><li><a href="#sec-12" title="章節 12：逃離理解，與人的價值（33:41）">章節 12：逃離理解，與人的價值</a></li><li><a href="#sec-13" title="章節 13：dark factory（40:06）">章節 13：dark factory</a></li><li><a href="#sec-14" title="章節 14：累不累：AI psychosis 與收尾（42:56）">章節 14：累不累：AI psychosis 與收尾</a></li></ul></nav>
+<div class="page">
+<header class="hero">
+<p class="eyebrow">全文譯本（非官方）</p>
+<h1>寫出不爛的程式碼：Pi 兩位創作者的直播對談（非官方繁中譯文）</h1>
+<p class="lede">Matt Pocock 直播，來賓 Mario Zechner 與 Armin Ronacher，約 46 分鐘</p>
+<p class="byline">原片：Matt Pocock 頻道，2026-11-17　譯本整理：2026-11-18</p>
+</header>
+<main id="main"><article>
+<p>本頁是 YouTube 直播〈LIVE: Writing code that doesn&#x27;t suck with the creators of Pi〉（Matt Pocock 頻道，2026-11-17）的全文繁體中文譯文，採台灣用語。對談者依影片說明欄與畫面名牌是 Matt Pocock（主持）、Mario Zechner 與 Armin Ronacher。對應的導讀見<a href="index.html">深度導讀</a>，雙語字幕見<a href="player.html">字幕播放器</a>。</p>
+<aside class="note"><p><strong>閱讀須知</strong>：英文來自機器自動字幕，未逐句對照原音；機器字幕有誤聽，譯文依術語表把已查證的專名修正成正確名稱（例如字幕的 “Oppo&#x27;s 5.5” 譯成 Opus 5.5、“Cock” 譯成 Coq、“Steve Yagy” 譯成 Steve Yegge），所以少數專名與字幕英文不同。本頁不標示誰在說話，說話者請看導讀。</p></aside>
+<hr>
+<h2 id="sec-1">章節 1：開場：兩位來賓自我介紹（00:00）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=0s" target="_blank" rel="noopener noreferrer">00:00</a> 好幾年了。現在我和 Mario、Colin 以及其他所有 Earendil 的夥伴一起做 AI 相關的東西。好，開始吧。嗨，我是 Mario。我犯傻做了一個爛 coding agent，但在那之前我也是長期的開源貢獻者，大概也有 20 年，甚至可能更久，不過主要是在遊戲開發領域。然後在我的本業工作中，我做過很多不同的事，從 2000 年代的 ML 工程、遊戲開發到編譯器工程，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=36s" target="_blank" rel="noopener noreferrer">00:36</a> 打造除錯器，以及很幸運地有不錯成果的創業歷險。然後大部分又回到了遊戲開發相關的東西。做鏟子（做工具）是我的專長。</p>
+<h2 id="sec-2">章節 2：Opus 5.5 之後：能放手的任務變多了（00:50）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=50s" target="_blank" rel="noopener noreferrer">00:50</a> 太棒了。那麼，Armin，在我們開播之前，你說了一些話。關於後 Opus 5.5 時代的事情。現在我覺得這是個很有意思的說法，我想請你解釋一下你的意思，以及那是個什麼樣的時代。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=71s" target="_blank" rel="noopener noreferrer">01:11</a> 所以我想對我來說，至少在 Opus 5.5 出現前後改變的事情——對其他人來說這可能是 Astra，我不知道—— 是在與這些模型合作了一陣子之後，我覺得達到了一種新層次的，我倒不一定會說是信任，但我覺得 我自己以及我想許多其他人都發現了一種新的基準線，對於某種類型的任務，你可以讓它在無人監督的情況下跑得更久得多。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=102s" target="_blank" rel="noopener noreferrer">01:42</a> 而且你也不一定會徹底討厭最終的結果。所以特別像是你有參考測試套件之類的東西，而你想要有一套相符的實作，它們有點像是⋯⋯ 對，有點像是能長時間持續琢磨苦幹。我不認為這能普遍適用，但現在確實有些特定任務你可以用這些模型來做，而這些事我以前是不會在沒盯著的情況下就去做的。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=134s" target="_blank" rel="noopener noreferrer">02:14</a> 我不認為這一定能轉化為許多日常的 Pi 工作，但它確實讓我能做一大堆以前我做不到的 side project。我們總是會繞回到這一點：它們對你的 side project 來說太棒了。是啊，對 side project 來說絕對太棒了。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=160s" target="_blank" rel="noopener noreferrer">02:40</a> 因為我認為在工作上之所以總是會有所保留，是因為我們在做的是試圖打造出讓其他人能在上面建構東西的成果。而且我覺得，我不會說標準更高，但如果真要說的話，我們有點像是非常謹慎小心。以免我們不小心發布了原本沒打算發布的東西。而在 side project 上，我其實不太在乎裡面是不是多了三個我根本不知道存在的功能。因為你在用 Pi 打造的東西，基本上是在打造一個公開介面。所以那個介面裡的每樣東西，都需要非常仔細地深思熟慮。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=191s" target="_blank" rel="noopener noreferrer">03:11</a> Mario，請說。</p>
+<h2 id="sec-3">章節 3：Mario：沒變好的與變好的（03:12）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=192s" target="_blank" rel="noopener noreferrer">03:12</a> 沒錯，差不多就是那樣。我是說，這不只是 Pi 的問題。在我的其他正職工作中也是，正如我說過的，我在做鏟子，而那些鏟子必須堅固又可靠，但如果你 vibe code 的話是得不到那些的，不管你的模型是叫 Opus 5.5、Astra 還是 Fable 5.2，不管它叫什麼，我根本不在乎。我的日常工作基本上就是審視或設計東西、系統或 API。而在那個領域，我並沒有發現從比方說 4.8 到 5.5 有這種巨大的能力躍升。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=227s" target="_blank" rel="noopener noreferrer">03:47</a> 它們在系統設計、架構和 API 設計上依然很爛。它們顯著變強的地方在於協調子 agent，以及任何能透過測試或其他 oracle 驗證的事情。它們會一直撲向它猛攻，直到正確的結果出來為止。而且它們有所進步改善的地方，還有它們不會對你說謊了。我認為它們不再那麼常 reward hacking 了。所以以前的目標，我給你舉個例子。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=259s" target="_blank" rel="noopener noreferrer">04:19</a> 我純粹為了鬧著玩，在 Pi 裡實作了一個目標，然後讓一個 agent 去縮短 Pi 的啟動時間。所以我讓它跑了一整夜。我想那時候用的是 Sol 5.3 或類似的模型。隔天早上我醒來查看輸出，結果它寫著：老兄，啟動時間減少了 10%，抱歉，是減少了 100%。太神奇了，怎麼辦到的？這在物理上似乎根本不可能。難道熱力學定律不再適用了嗎？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=290s" target="_blank" rel="noopener noreferrer">04:50</a> 結果它就像是說：沒騙你，這完全是真的，老兄。你只要啟動看看就知道。然後我心想：好啊，酷喔。但根本什麼都沒顯示。「你是不是直接⋯⋯」「對，基本上我把所有模組都拔掉了。」它把整個應用程式都移除了。那是 5.3 還是 5.2，我記不清了。而現在這點稍微好一些了。特別是 Claude 模型不再像以前那樣那麼常對你說謊了。</p>
+<h2 id="sec-4">章節 4：戰術與策略：做不到的事與領域知識（05:13）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=313s" target="_blank" rel="noopener noreferrer">05:13</a> 我覺得大家都有注意到一個概念，也就是如果你——我一直在講這個——戰術性工作與策略性工作的劃分，對吧？戰術性工作有點像是在第一線。它聚焦在資料上。它聚焦在資料上。它聚焦在日常事務上。而策略性則是長期的。它有點像是在思考如何贏得整個戰爭，而不是贏得單場戰鬥。我的看法是，agent 似乎非常擅長戰術性工作，而非常不擅長策略性工作。有沒有什麼事情——Armin，我再問問你。有沒有什麼是你嘗試過但就是行不通的？還是你根本連想都沒去想那些？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=346s" target="_blank" rel="noopener noreferrer">05:46</a> 我是說，確實有些我嘗試過的東西是行不通的。而在那個當下我覺得，好吧，這真令人意外。它做不到。我覺得對我來說，其中一點是 Opus 非常擅長理解藝術，不是創作藝術，而是它懂得色彩構圖之類的原理。但這完全無法轉化為能夠製作音樂，或是處理樂譜。這真的讓我很驚訝。而且我覺得他們幾乎是有意不在這方面進行訓練，因為肯定有專門的音樂模型。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=382s" target="_blank" rel="noopener noreferrer">06:22</a> 為什麼 Opus 系列模型不做這個？而且顯然地，我認為任何涉及極其複雜系統的事情，如果沒有大量的額外引導，我其實不太期待它們能做對。但老實說，到了這個階段，我覺得有更多事情是我最後驚訝於它們居然行得通，但同時也有點預期它們會行得通，比起我手邊真有一份它們行不通的具體清單還要多。這並不意味著你不能把所有事情都搞定。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=415s" target="_blank" rel="noopener noreferrer">06:55</a> 我想有一個有趣的案例，我跟 Sentry 的創辦人 David Cramer 聊過，我們大致得出結論：Opus 5.5 對我來說在電腦遊戲方面進展非常順利。但對他來說卻沒什麼進展。然後我意識到，好吧，我其實確實有遊戲背景。所以這就像是我 prompt 它的方式，裡頭有一些非常具體的事情。如果你沒有沿著這條路徑去 prompt 它——我也在我兒子往我們的遊戲裡加東西時看到這點——做出來的結果就是不一樣。所以 prompt 牽涉到非常多的技巧，但也有點像是，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=447s" target="_blank" rel="noopener noreferrer">07:27</a> 當你知道你想依循什麼順序來做時，你會比完全沒有指引成功得多。這就有點像是，我也不知道。是啊，有了領域知識，就像我和 Armin 在某種程度上都有遊戲開發背景一樣，如果你帶著那種領域知識來切入，你似乎就能從權重中摳出專門針對那些問題的解空間，就像三年前，我們會給所有的 GPT 設定角色和人設，對吧？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=478s" target="_blank" rel="noopener noreferrer">07:58</a> 但這差不多是同一回事，只不過是針對特定知識領域。而如果你沒有使用正確的術語，不知道為什麼，它就是無法存取到賦予它該領域知識的那部分權重。所以對啊，我不知道。或者它就只是決定走另一條路徑。就像是，我覺得有一點是</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=500s" target="_blank" rel="noopener noreferrer">08:20</a> 在那裡——我不知道，這有點像是陰謀論的範疇了——但我認為在某些情況下，它們想到的第一個解法在技術上確實是一個解法。但那是最佳解法的可能性其實仍然相當低，因為你必須給它設定好適當的權衡取捨。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=521s" target="_blank" rel="noopener noreferrer">08:41</a> 但我認為這也是一個很好的區分點，能區分出它們擅長什麼、不太擅長什麼。任何模糊不清、沒有標準解法、需要你帶入某種經驗、領域知識或單純直覺的事情，諸如此類的，它們真的都很爛。任何幾乎只要筆直朝著目標前進的事情，就超級好、超級容易。我可以信任它們。所以就是這樣。對。我今天早上在看 Lauren Tan 在 AI Code 的演講，她說細微差異往往會導致 slop，對吧？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=554s" target="_blank" rel="noopener noreferrer">09:14</a> 如果問題中存在任何細微差異，那它大概就會選錯，對吧？所以這意味著當你在設計程式碼庫和設計 API 時，你必須非常小心，盡可能避開細微差異。這大概就是這個概念。</p>
+<h2 id="sec-5">章節 5：初學者該學什麼（09:26）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=566s" target="_blank" rel="noopener noreferrer">09:26</a> 盡可能，我覺得現在這樣相當不錯。剛好因為我們剛才聊到了領域知識，我很感興趣的是，在每次直播中大家都會問這些問題：也就是初級工程師該如何應對？在這個新時代你該學些什麼，對吧？因為你們顯然有 20 年做這檔事的經驗，現在重要的技能是什麼？還有重要的技能嗎？還是 還是寫程式基本上已經死了？Mario，你說呢。首先，不管你是什麼性別，你都得留出白頭髮和鬍鬚，然後假裝你懂，那樣你就搞定了；把頭剃光也行，還有對，眼鏡，那真的很有幫助，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=605s" target="_blank" rel="noopener noreferrer">10:05</a> 而且最好去念牛津，對，講話聽起來也要非常有腔調。絕對是這樣。不，我老實說真的不知道，在可預見的未來裡，我依然認為學習基礎觀念，以及與同行交流，其實才能帶給你有效指揮 agent 所需的那種經驗。我認為這點不會消失，只是現在多了一個神奇按鈕，如果我是個初級工程師，我也會一直按它，所以我不知道，這需要自律，自律大概是你最需要的一件事，</p>
+<h2 id="sec-6">章節 6：程式碼變便宜之後的品質（10:37）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=637s" target="_blank" rel="noopener noreferrer">10:37</a> 如果你想成功的話。在我們開播之前，你提到的另一件事是，有著一種 數量與品質之間的拉鋸，Mario 你剛才也稍微談到了你可以按下神奇按鈕，你可以得到大量的程式碼，但基本的權衡是什麼？當所有程式碼都變得廉價時，你該在多大程度上在乎品質？Armin。我是說，我認為就像 agent 那樣，當你光是 prompt 它們時，它們永遠不會說你做不到某件事，最糟也就是會給你類似「這需要花六週」的說法，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=673s" target="_blank" rel="noopener noreferrer">11:13</a> 但實際上你大概兩小時就做完了，所以我覺得很自然會有一種想把每個功能都加進去的傾向，有時候甚至就算你沒要求它加某個功能，它也會順帶變成副產品跑出來，所以我認為軟體的預設行為就是朝向擁有一切的熵增，我絕對很喜愛這些東西的強大威力，但我更感興趣的是大家是否正運用那種力量去打造盡可能最優秀的軟體，而不是塞進最多可能功能的軟體；而且也很難抗拒一個什麼功能都包辦的軟體，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=709s" target="_blank" rel="noopener noreferrer">11:49</a> 因為我總想要它有這個、有那個、還有這個，結果現在我就搞出了一輛荷馬・辛普森的車，就像 Mario 總愛說的那樣。所以我也不知道，我自己也經常忍不住在很多我正在做的事情裡塞進太多東西，但我真的共同期盼能有更多人去打造真正高品質且極具雄心的軟體，但老實說不是在功能數量上，而是在品質標準上。是啊，我有點不好意思，你繼續，我剛才</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=741s" target="_blank" rel="noopener noreferrer">12:21</a> 正想請你接著講。沒錯，我是說在 agent 出現之前，我們也不是就擁有絕頂超棒的軟體，對吧？但我也不認為既然以前那樣，我們現在就可以不在乎品質。我認為現在正是真正關心品質的最佳時機，因為以前剝奪你時間的許多苦差事，當你親手手寫程式碼時的那些事，現在都能由 agent 來完成，所以在理論上你應該有更多時間專注在品質上，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=771s" target="_blank" rel="noopener noreferrer">12:51</a> 而非數量上，但我們目前看到的依然恰恰相反，因為每個人都得了 AI 精神病（AI psychosis）。到頭來這將取決於商業效益，取決於你透過使用 agent 所能額外產生的營收，而我還沒看到靠荷馬・辛普森的車這條路能做到這點，但我完全能預見透過提升服務品質來實現，特別是在某些領域，那些正常運作時間等等直接決定財務成敗的領域。你知道的，目前還沒看到這點，我認為我們只是</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=803s" target="_blank" rel="noopener noreferrer">13:23</a> 需要搞清楚該如何——我們至今還沒搞清楚搭配 agent 打造高品質軟體的工程流程應該長什麼樣子，而在達到那一步之前，我們就只能把東西往牆上亂丟，看能黏住什麼。我是說，你幫我們做了很多這類工作，</p>
+<h2 id="sec-7">章節 7：信任：Pi 怎麼用 agent（13:36）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=816s" target="_blank" rel="noopener noreferrer">13:36</a> 所以我丟了很多，絕對是一大堆。我是說你們兩位，我從你們身上感受到的氛圍基本上有點像是大鬍子老手的懷疑論，有種東西還沒真正到位、火候還不夠的感覺，對吧？就像我們還沒⋯⋯你知道的，還缺了點什麼，所以 缺了什麼？只是因為模型還不夠好，還是我們還沒找到技術去 harness 現有的模型？對你們來說</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=847s" target="_blank" rel="noopener noreferrer">14:07</a> 到底是怎樣？聽起來你們對 agent 處在一種偏向低度信任的狀態，對吧？然而很多人，特別是自從 Opus 5.5 推出以來，對它們是越來越信任，或是建構了 harness、建構了環境，例如使用像自動化審查這樣的驗證工具，來讓 agent 能 順暢貫徹流程，好讓它們能夠做好工作，並且受到控制，給它們較少的選項；所以你們又是如何？你們是完全不信任 agent 嗎？還是你們正試著建立能信任它們的系統？那會是什麼樣子？我隨機選一個人，Armin。我不確定</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=883s" target="_blank" rel="noopener noreferrer">14:43</a> 這是不是信任的問題，因為我……我聽起來不想……我不想要一個世界 是……好，也許我對整件事有個很簡單的看法，那就是如果假設這些 agent 一切都一樣。這是基準線。我們有了這整套驚人的東西，不管它是什麼，我其實不太在乎它到底發展到多遠。我們不是在為非人類的事物開發軟體，它們又不會享受我們的軟體或生活中的任何事物。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=919s" target="_blank" rel="noopener noreferrer">15:19</a> 它是為了人類而存在的，對吧？所以大概人類的要素總會以某種形式存在，不然人類的意義又是什麼？所以某種意義上，我其實沒那麼在乎 agent。我在乎的是無論我們在做什麼，對社會來說都真的很酷，而且能帶來真正的好處。所以很多關於 agent 的討論對我來說，並沒有那麼……我確實希望它運作得更好之類的，但無論它會達到什麼水準，我真的只在乎軟體工程師要如何做出你能做到的最棒、最酷的事。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=953s" target="_blank" rel="noopener noreferrer">15:53</a> 而且我認為這總是會碰上人類能力的極限。他們只是會用更多 agent 來做這件事。所以我不認為會出現我覺得「現在完全把人從這個環節中抽離」的時刻。那對我來說可說是完全沒意思。所以我們要如何讓人在這個環節中發揮得最好？所以從那個角度來看，我不認為有一個具體的門檻。我會試著找出要如何讓身在其中的人類取得最大的成功？而且我認為無論模型會變得多好，從那種意義上來說，那永遠都會是一個需要去試著弄清楚的新課題。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=989s" target="_blank" rel="noopener noreferrer">16:29</a> 對我來說，這仍然是信任問題。是啊。這是信任的問題。但隨著時間推移，你會學到什麼事情可以信任 agent，什麼事情不能信任 agent。每次模型發布後都會經歷這個過程。你也可以假設每個模型家族的新世代都有一個基本水準。舉例來說，在 Pi 每天大約有 40 到 50 個新的 issue。我們架設了一個 triage bot。那是我同事 David 做的。它就是讓 agent 根據非常簡單的 prompt，調查 bug 是否屬實、</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1020s" target="_blank" rel="noopener noreferrer">17:00</a> issue 回報是否合理，嘗試穩定地重現它，然後提出修正方案並指定優先級。我們根據舊資料和一些額外的想法，調整這個系統大約一兩週了。而且它超級可靠。如果我看到一個被標記為 P0 的 issue，我可以相當確定它是 P0，而且如果該 issue 也被重現的話。是啊。如果它有一個在現有程式碼上會失敗的測試，以及一個能讓測試通過的修正，我就高度信任這是沒問題的。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1060s" target="_blank" rel="noopener noreferrer">17:40</a> 所以在這種情況下，我多半就可以直接簽核並合併 agent 建議的修正。在其他情況下，若是牽涉到新增特定功能或擴充特定功能，任何牽涉到我身為產品使用者的情況，結果都非常搞笑。對。是啊。這倒不是我們不信任 agent，只是它們有未磨合的粗糙邊界，並且在不同領域有擅長、值得信任的地方，也有不行的地方。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1090s" target="_blank" rel="noopener noreferrer">18:10</a> 而且我覺得一旦我們對它達到了某種新的信任水準，你就會自然而然把目標放得更高，然後又會發現自己再次陷入某種失去這種信任的境地，因為你幾乎把你原本信任它現在能做好的部分視為理所當然了。</p>
+<h2 id="sec-8">章節 8：還讀多少程式碼（18:26）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1106s" target="_blank" rel="noopener noreferrer">18:26</a> 是啊。我們現在在 Pi 上閱讀程式碼的比例低非常非常多。但我們也不太常談這件事了，因為當然，它不會再把紀錄散落得整個程式碼庫到處都是了。也許它還是會這樣，我不知道。但我確定我已經不在乎那部分了。所以你有，好。我的意思是，因為我認為人工審查的量目前是正在改變的事情，對吧？因為在今年稍早，改變的是我們親手寫程式碼的量，對吧？對我來說那幾乎已經降到零了。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1139s" target="_blank" rel="noopener noreferrer">18:59</a> 我想你們那邊也降到零了，而且已經持續一陣子了。但現在的問題是我們要審查多少，特別是我們有多大程度在阻擋審查放行。現在像 Pi 這樣的公開專案，顯然你們有許多……有一個必須照料的介面，而且你們必須確保上面沒有重大破壞性變更，這對你們來說是件大事。但是你們有多少程度在看發布出去的程式碼，又有多少程度只是在看 agent 呈現給你們的證據？就像在那樣的情況下，基本上我會把你們擁有的東西稱為「軟體工廠」，我想這算是一種把 issue 轉化為成果的非常術語化的說法。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1176s" target="_blank" rel="noopener noreferrer">19:36</a> 而你基本上就只是信任那點，而不必去讀程式碼。那 Mario，你現在還會看多少 Pi 的程式碼？相當多。我也會看這些被自動修復的 issue 的 diff。但我的超能力是我了解 Pi 的程式碼庫，而且我仍然了解這個程式碼庫。好。在 agent 修復 issue 歷經 12 個月後，我仍然了解 Pi，因為我其實也都會看那些修正。這並非對每樣東西都如此。我們有一個 session 資料的 HTML 匯出功能。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1207s" target="_blank" rel="noopener noreferrer">20:07</a> 我不在乎程式碼長什麼樣子。如果最終結果是正確的，我不在乎它是怎麼運作的，對吧？但如果有任何事情與工具如何運作、其實作如何運作，或 agent loop 如何運作相關，或是所有需要穩定且良好的核心 primitives，我依然會去看。我會看程式碼。我還沒放棄這件事。是看全部的程式碼，還是部分的程式碼？還是你只是抽樣檢查？或者情況是怎麼樣？再說一次，如果它真的動到了我知道超級、超級重要的子系統，我顯然會讀完整個 diff。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1242s" target="_blank" rel="noopener noreferrer">20:42</a> 如果是某個我大致知道修復起來該長什麼樣子的東西，我也許就會直接跳過很多部分。特別是對於非關鍵任務（non-mission critical）的東西，那我就完全不看，因為我不知道。那是從哪裡來的？某個地方是不是多了一個空白字元之類的，這點我就信任 agent。是的。</p>
+<h2 id="sec-9">章節 9：「驗證被高估」（21:03）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1263s" target="_blank" rel="noopener noreferrer">21:03</a> 那麼 Mario，我繼續問你，因為看起來你們兩位都有點寬鬆，或者說你們比我更不在乎驗證之類的事。也就是把 agent 放在一個它能成功的環境中並約束它，給它較少的選項、不允許它自行產生細微差異，或做決定之類的事。而且在我們開始直播前，你說了一句相當耐人尋味的話：「驗證被高估了。」</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1295s" target="_blank" rel="noopener noreferrer">21:35</a> 你到底是什麼意思？我想知道。首先，我想說 Lauren 超級讚。我很喜歡她的每一分產出。我那句話完全不是衝著她來的。只是我認識太多人在自欺欺人，以為只要 agent 寫了一大堆 linting 規則、單元測試或端對端測試等，系統就沒問題了。事實並非如此。原因在於它們仍然是愛追目標、愛 reward hack 的小混蛋。而且它們就是會對你說謊。現在依然是這樣。或者它們會衡量錯誤的東西。或者它們會衡量得不夠多。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1327s" target="_blank" rel="noopener noreferrer">22:07</a> 除非你非常清楚掌握到底 底層發生了什麼事，否則你根本不知道你的驗證是否真的有任何價值。而且我認為這些東西大多都很不行。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1345s" target="_blank" rel="noopener noreferrer">22:25</a> Armin？我的意思是，首先，我認為我們其實很依賴驗證，對吧？這倒不是說，嘿，Pi 裡面充滿了單元測試。而且我做過的每一個專案，都有很多用來約束 agent 該做什麼和不該做什麼的機制。但很多事情本質上就是相當難以驗證。而且我想，我之前用 Lean 對 Pi 裡的許多東西做了證明。然後事後覺得，哇。我幹嘛做這個？因為現在我需要……我的證明要透過什麼機制上傳到 Twitter，發到 Twitter 給你看。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1382s" target="_blank" rel="noopener noreferrer">23:02</a> 不是啦，因為我當時很好奇，我是不是能做出某種東西，讓原始碼能與證明保持一致？而且我還針對我們最終可能想用、也可能不想用的一個假設性元件，做了一個系統，基本上使用一種後設語言（meta language），就像是迷你版的 TypeScript 來當作輸入語言。這樣對其他系統來說就是透明的，因為它賦予了我某種在其他情況下無法獲得的控制度。這非常有趣，但說到底其實沒真正解決任何問題。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1416s" target="_blank" rel="noopener noreferrer">23:36</a> 它只不過是給了 agent 另一個可以利用的東西。但到目前為止以我們的做法來說，除非你用 OCaml 寫程式碼，否則大部分的軟體驗證，像是經形式驗證的程式碼（verified code），最終都只會變成另一個讓 agent 參考的產出物（artifact）。至少據我所知，目前還沒有。它還沒有成為真正從根本上約束 agent 的內在要素。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1442s" target="_blank" rel="noopener noreferrer">24:02</a> 所以我認為確實存在一個軟體驗證能奏效的世界。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1451s" target="_blank" rel="noopener noreferrer">24:11</a> 如果有人找到了一個很棒、真正適合這種做法的端對端軟體開發體驗，我真的很好奇。我有一個反論點。Coq 之類的。還有 Lean，到目前為止就我做過的測試，以及我尚未成功將它妥善引入到我們正在做的事情中的部分來說。停機問題（halting problem）是真實存在的，而且它可能會傷到你。無論你用 Lean 還是 Coq 之類的，都無所謂。這也是個你試圖驗證的單元到底是什麼的問題。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1485s" target="_blank" rel="noopener noreferrer">24:45</a> 我可以輕易驗證一些純函式（pure functions）。這夠簡單。我無法端對端驗證整個系統。這就是行不通。而且就算你最終做了，你做了，但個別模組通過驗證，並不代表這些模組組合在一起也能通過驗證。所以我不認為有辦法做到全程式驗證，除非我們談論的是像航太領域 以及其他受到高度監管的產業與企業，這在那些領域已經存在幾十年了。但你必須看看他們實際上是怎麼做的、他們是如何驗證事情的，以及他們在明知需要被驗證的情況下是如何寫程式的。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1516s" target="_blank" rel="noopener noreferrer">25:16</a> 我們現在寫的任何程式碼，完全沒有任何一絲一毫符合像是航太產業那樣的做法。所以，是的，我再次認為我們大多是在自欺欺人。但另一方面，有總比沒有好。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1531s" target="_blank" rel="noopener noreferrer">25:31</a> 你只是不該僅僅因為硬碟上有一堆乾淨的程式碼就產生安全感，那些程式碼甚至無法證明你以為它能證明的東西。沒錯。而且基本上只因為 CI 是綠燈。沒錯，正是如此。</p>
+<h2 id="sec-10">章節 10：對抗式審查與過度防禦的程式碼（25:44）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1544s" target="_blank" rel="noopener noreferrer">25:44</a> 所以我認為這一向都是如此，對吧？始終存在著一個問題：利用確定性（deterministic）工具究竟能走多遠。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1553s" target="_blank" rel="noopener noreferrer">25:53</a> 還算遠，還算遠。但不夠遠，對吧？而且可能永遠都不夠遠。你們在此之上會採用任何 AI 審查來為你們提供額外的安全感嗎？我再說一次，我不會稱之為安全感，但我會稱之為防止我偷懶的保險。因為當給予正確的 prompt 時，agent 可以非常無情，直接告訴你這根本是垃圾。所以在我的日常工作中，特別是做系統設計時，使用對抗性審查（adversarial reviews）真的非常非常重要。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1584s" target="_blank" rel="noopener noreferrer">26:24</a> 而在那種情況下，我基本上只是利用集成方法（ensemble methods）這個由來已久的智慧。像在 2000 年代那時，當我做基礎機器學習（ML）時，集成方法超級流行。所以你今天也可以套用相同的做法。你挑選不同的模型家族，讓它們各自用相同的輸入來審查相同的內容。你就會得到超級不同的答案，並找出超級不同的問題。那極其有幫助。這樣做的問題在於，如果你叫它們過度挑剔（overzealous），或者隨便它怎麼發音，抱歉，我的英文不完美，它們就會變得過度挑剔。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1619s" target="_blank" rel="noopener noreferrer">26:59</a> 這也可能會造成傷害，因為這樣一來它們就會挑出那些你其實根本不需要去思考、在乎，甚至不需要去修復的東西。所以你依然處於必須用自己的判斷，去把任何它們回報為問題的東西過濾掉的處境。是啊，在任何一種自動化的對抗式審查中，你總是會遇到偽陽性。這有點像是這類東西的本質。它總是會生出一些東西來。而且有時候，實際上根本沒那麼多。有人會把它放進迴圈裡跑，直到沒有任何東西冒出來為止。而且我認為那只是一種……然後他們就對更多的每樣東西提出最大可能的改動。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1653s" target="_blank" rel="noopener noreferrer">27:33</a> 確實。嗯，還有那些評論也是。而且它們就只是在互相猛烈抨擊，挑剔、挑剔、挑剔。這當中的一個大問題是，我不知道在較新的模型上這在多大程度上已經不太算問題了，因為我現在傾向於避開這種做法。但是，我認為它們曾經在某個時期被訓練過最佳實踐。而很多最佳實踐實際上可能是很糟的。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1683s" target="_blank" rel="noopener noreferrer">28:03</a> 我非常相信降低系統複雜度這件事。但很多最佳實踐就像是防禦每一種不良輸入、處處都要做防禦性程式設計。而我認為它們把這點銘記在心了。而如果你就放手讓它去做。這玩意依然會大幅增加系統的複雜度。我也注意到了，因為我目前正在做大量的安全研究，以確保如果有人拿它來做壞事，我們的屎不會完全垮在地上，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1720s" target="_blank" rel="noopener noreferrer">28:40</a> 它塞進去的很多額外防護</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1727s" target="_blank" rel="noopener noreferrer">28:47</a> 可能會讓它以為某個東西是安全無虞的，但實際上，它又漏掉了。所以我認為那是你漏掉的一大重點。但你覺得沒問題，因為這個東西就在這裡。所以更簡單的系統隨著時間推移，往往更容易理解。而 agent 仍然會產出。我相當確定，因為人類的惰性往往會讓你寫出比 agent 所做的更精簡的程式碼，如果我們讓 agent 和人類正面交鋒來解決同一個問題，結果可能實際上會是人類寫的程式碼在長期來看某種程度上更容易維護。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1761s" target="_blank" rel="noopener noreferrer">29:21</a> 在沒有 agent 的情況下。如果是那樣我也不會感到驚訝。對，因為程式碼更難產出。你會思考得更多。是啊。是啊，我懂你的意思。</p>
+<h2 id="sec-11">章節 11：系統設計：手感與取捨（29:31）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1771s" target="_blank" rel="noopener noreferrer">29:31</a> 所以，如果……那我們來……我認為人類會比較擅長的一件事，某種程度上就是進行戰略性思考，同時進行戰術與戰略思考。而且希望如果他們是優秀的 Coder，他們做出的選擇會隨著時間推移改善系統設計。當你們思考系統設計時，你們兩位在 AI 出現前以及 AI 時代都有豐富的經驗。有哪些技巧……我們可以向你們兩位挖掘你們的領域語言，好讓我們能餵進我們的 prompt 裡嗎，拜託？對我來說那就是夢寐以求的事。因為對我來說，我想的是像 John Ousterhout、深模組、你知道的，介面、你知道的，接縫、等等之類的。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1807s" target="_blank" rel="noopener noreferrer">30:07</a> 像是你們對哪些技巧感興趣？你們發現什麼方法有效，也許能給予 agent 關於系統設計的正確認知？你們兩位誰都可以接這個話題。讓我先開始，因為這完全沒有具體規範。太棒了。對我來說，這更像是一種工匠式的嘗試，而不是結構化的工程事物。我需要在創造解決方案之前，先摸索出解空間的感覺。所以以前我會寫些小程式、小 API、型別等等，並且有一個暫存檔讓我在裡面實驗目前為止寫出來的東西，看看感覺如何，看看哪裡會崩潰。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1840s" target="_blank" rel="noopener noreferrer">30:40</a> 現在 agent 可以替我接手這件事，在解空間裡不只寫出這個東西的一個版本，而是寫出 10 個版本，而我可以同時探索所有這些版本。而那真的太棒了。我能夠看到這個問題更多的面向，遠比我作為一個每天只能產出那麼多行程式碼的單獨程式設計師所能看到的多得多，對吧？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1862s" target="_blank" rel="noopener noreferrer">31:02</a> 基本上就是這樣。我就只是不斷迭代。我作為程式設計師的一生就是迭代、迭代、迭代，直到它感覺足夠簡單，卻又足以勝任我想做的事情。這很難明確規範。這沒辦法當成 prompt，對吧？我不能說，你知道的，我對這個有感覺。你知道的，是啊，感覺很棒。感覺很爽，老兄。Armin，你有什麼想法嗎？我的意思是，我想大概過去 10 年、也許 12 年左右，我生活很大一部分都跟建置和維運 SaaS 軟體有關。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1893s" target="_blank" rel="noopener noreferrer">31:33</a> 而且我認為當你這樣做時，最終你會內化這個想法：最重要的其實是，當出狀況的時候，理想情況下，這款軟體的撰寫方式是讓什麼都不做說不通。它不會讓情況變得更糟。嗯，就像你移除了「你必須立刻採取行動」的這種要素。所以就像是替自己建立某種開關、切換器和各種各樣的東西。讓你在火燒眉毛的緊要關頭可以按一下，在這裡爭取一點喘息空間。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1928s" target="_blank" rel="noopener noreferrer">32:08</a> 而我未必知道 是否有什麼神奇的 prompt 可以給 agent 讓它做到這一點，因為這很大程度上關係到……</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1942s" target="_blank" rel="noopener noreferrer">32:22</a> 像是非常透徹地理解系統中流動的是什麼樣的資料、資料量有多大，因為不同的資料量會有不同的取捨。所以有大量的背景資訊也會隨著時間改變。說來好笑，我上週五正好遇到一個必須調查的情況。這是發生在一個 agent 實際上願意維護一些帶有長度檔案的文件檔的程式碼庫上。而我有許多不同的發現。然後當它在讀這些東西的時候，我心想，這非常詭異。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=1975s" target="_blank" rel="noopener noreferrer">32:55</a> 像是為什麼、為什麼你會這麼認為？然後我發現，噢，因為我找到了這裡的這個檔案，上面說裡面只有 2000 筆紀錄。然後就像是，是啊，你寫那個檔案時你的資料庫還是空的。所以事情會改變，到了這個時候，資料庫已經不再是 2000 筆紀錄了。到了這個時候，已經有數百萬筆紀錄了。所以，你會根據這一點做出完全不同的取捨。所以我不知道。我覺得除了……之外，這裡其實沒什麼好分享的，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2005s" target="_blank" rel="noopener noreferrer">33:25</a> 當你建置 SaaS 軟體時，你會想要……因為說到底，我認為如果出屎事了，你依然得扛責任，對吧？所以目標依然是一樣的，那就是如果出狀況了，agent 是不會感受到我的情緒的。會是我。是啊，差不多是這樣。</p>
+<h2 id="sec-12">章節 12：逃離理解，與人的價值（33:41）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2021s" target="_blank" rel="noopener noreferrer">33:41</a> 我是說，我認為 Armin 和我有些共同的經歷以及我們經手過的事物，但我比較偏向客戶端，比較偏向圖形程式設計那邊，而 Armin 則比較偏向雲端裡龐大的硬體巨獸，它們做很多非常重要且非常昂貴的事情。所以我們對事物可能有些不同的看法，但我認為我們現在在這裡試圖做的，或是整個產業目前在這裡試圖做的，是在逃避理解。而我搞不懂這一點。這對我來說他媽的毫無道理，因為如果你再也不需要理解任何事情，那你還有什麼用？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2055s" target="_blank" rel="noopener noreferrer">34:15</a> 我為什麼需要你？如果我只要 prompt 我的軟體工廠就行了，我就不需要付你薪水。我會把你開除。在我的日常工作中，我還沒看到自己變得一無是處。我不排除這種情況會發生，但目前並非如此。但我弄不清楚為什麼這在最初會是令人嚮往的。當一間公司營運到這種連理解都煙消雲散的規模時，你從根本上到底獲得了什麼？因為表面上看來，這在某種程度上就是目標。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2086s" target="_blank" rel="noopener noreferrer">34:46</a> 就像是，你如何規模化？你要如何把那個環節規模化，好讓人再也不必參與其中？而真正的答案是，在任何時間點發生的任何事情，都會有人必須跑去找 agent 才能搞清楚到底發生了什麼事。我是說，我們現在就已經是這樣了。我們就已經有同行說，在事故會議期間，沒人知道到底他媽的發生了什麼事。他們全都在 prompt 他們的 Claude。那真他媽的嚇人。我不知道你記不記得這件事，但我記得大約是 4 年前，Facebook 不小心把自己鎖在總部外面。我不知道你記不記得這件事。是啊。我不知道你記不記得這件事，但我記得大約是 4 年前，Facebook 不小心……我不太記得具體的故事了，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2119s" target="_blank" rel="noopener noreferrer">35:19</a> 但我想最終好像是其中一台交換器故障之類的，然後最後引發了連鎖故障。而他們好像第一次必須真正從第一原理去搞清楚到底是怎麼回事，因為有太多東西都建立在那之上了。而這種災難級的故障，以及能夠對此進行防禦，就像是，沒錯，也許這種事只會偶爾發生一次，但公司理應備有災難應變計畫是有原因的。而對我來說，很難想像會有一家 Fortune 500 公司會說，是啊，</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2150s" target="_blank" rel="noopener noreferrer">35:50</a> 我們的計畫是在那邊準備另一個 coding agent 的備份，然後我們要用發電機之類的東西來跑它，這簡直是……我不知道。所以我想我要問你們兩位的是，我想問你們的是，假設有人被要求證明自己這份工作的價值，對吧？有人被要求去說明……好，你們打算開除我。好。我感覺得到。對。或者你們可能要在這個 10 人的團隊中開除大約 5 個人。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2181s" target="_blank" rel="noopener noreferrer">36:21</a> 有什麼論點可以證明人類是不被需要、還是被需要的？像是為什麼需要他們？難道就只是像災難應變嗎？那感覺不是很強而有力。肯定還得有些……感覺應該不只如此，對吧？我們稍微提到過，噢對，你可以利用領域知識來微調 agent。讓它某種程度上，你知道的，能帶入正確的參數運作。像是什麼才是對的？是啊。提出那個論點的正確方式是什麼？讓我先說，儘管說出來很痛心，但我不會去提出那個論點。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2213s" target="_blank" rel="noopener noreferrer">36:53</a> 我認為在軟體的許多任務中，你已經不再需要人類了。這純粹是不爭的事實。那麼問題就變成了，在一個可以被機器取代的市場中，你要如何保有自己的價值？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2228s" target="_blank" rel="noopener noreferrer">37:08</a> 對我來說答案很簡單，因為我老了。所以我有許多經驗，而那似乎在市場上仍然具有價值。但對於年輕人，我不知道。我老實說不知道。我只能說像我這樣的人很快就要死去了，然後我們大概仍然需要一些看管軟體工廠的人，而且他們仍然需要知道、或者至少表面上理解到底他媽的在搞什麼。所以那將會是你們，年輕人們，所以你們最好趕快把事情搞懂。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2255s" target="_blank" rel="noopener noreferrer">37:35</a> 但我老實說，我沒辦法說世界上每個軟體工程師都有理由保住飯碗。事情就是這樣。是啊。如果有人跑來對你說：嘿，你需要證明你這份工作的價值，你就已經到了「不管我對這家公司有沒有價值我都得逃跑」的程度了，因為事情已經錯得太離譜了。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2279s" target="_blank" rel="noopener noreferrer">37:59</a> 我的意思是，對於可能擁有某種程度工作保障的人來說，這顯然很容易說出口，但我認為大家實際上這樣做是蠻重要的。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2290s" target="_blank" rel="noopener noreferrer">38:10</a> 當然，你永遠不會被明確這樣問。但你可能會感覺得到。你在公司裡的一種感受。你可能會感覺到事情進展得不太順利。可能會有一輪裁員你沒有受到波及，然後也許下一輪裁員又即將到來，而你可能會傾向於在團隊 Slack 裡多發一點關於你正在做的事情，或者你可能會把自己的成就講得更大聲一點。是啊。但我認為到了那個地步有點像是輸局，因為如果你每天都覺得必須證明自己所做之事的價值。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2326s" target="_blank" rel="noopener noreferrer">38:46</a> 氣氛真的很不對，因為某種程度上這也會反噬到你身上。因為到那個時候，你就比較沒有動力去真正搞清楚自己在公司到底該做什麼，而是花更多時間在證明自己存在的合理性。如果你已經到了那個程度，我不知道，我會在更早的時候就試著搞清楚 如果我做的事實際上不再能提供價值，而且我隱約覺得可能就是這樣，那我該往哪裡去？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2356s" target="_blank" rel="noopener noreferrer">39:16</a> 我該去哪裡做那個？我該在哪裡提供價值？而且那可能每 3 個月都在變，對吧？歷史上，我們這些宅男（neckbeard）都盡量避免跟其他人類說話。而我認為這正是實際上能提高你在市場上價值的一件事。像我就從來不是那種典型工程師，我其實喜歡人類，我其實喜歡跟人類說話。所以這讓我有機會超越一個工程師的角色，比方說，不只是一個寫程式的人，對吧？舉例來說，我可以某種程度上同理我的使用者。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2386s" target="_blank" rel="noopener noreferrer">39:46</a> 並且更能搞清楚他們到底他媽的真正需要什麼。難度等級：不可能。對。對我來說，在我的職涯中也一直覺得這點非常強大。而且我認為如果你身為人類真的很擅長這點，機器目前至少還不太能複製。很多人類在這方面爛透了。或者是人們討厭跟機器說話。</p>
+<h2 id="sec-13">章節 13：dark factory（40:06）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2406s" target="_blank" rel="noopener noreferrer">40:06</a> 所以我想把大家拉回到，不好意思，我想把話題拉回程式碼一點，就是有這麼個，我想我們也許只有時間再問幾個問題了。而這題是……最近流傳著一個叫 dark factory（無人工廠）的詞，對吧？也就是說，這個概念是你有一個軟體工廠，而它基本上就自己在運作。你永遠不需要看程式碼，永遠不需要開燈。我很好奇你們認為現在這是否可行、現在是否對某些事情可行，以及未來是否可能變得可行。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2438s" target="_blank" rel="noopener noreferrer">40:38</a> 我一般不太喜歡當評論員發表高見，但你們有點把我引向那個方向了。好。行。讓我先來回答。太棒了。很有意思。如果有人能把它做成功而且具有經濟價值，那它就會存在。我目前還沒看到它存在。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2456s" target="_blank" rel="noopener noreferrer">40:56</a> 對。Armin？對。我是說，我認為大家去嘗試確實很有趣。我最近關於這個的例子，是在準備我之前在 AI Engineer 的演講時遇到的，我跟一位朋友討論過這件事，我說，看吧，我其實不認為有人是完全這樣運作的。像是如果有 tracker，它收到 issue 就會自動修復之類的，他說：『噢，我有這樣做。』我就說：那你現在還在用嗎？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2487s" target="_blank" rel="noopener noreferrer">41:27</a> 他說沒有。我說：『你難道不在意它浪費 token 嗎？』他就說：『對啊，其實應該把它關掉。』</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2494s" target="_blank" rel="noopener noreferrer">41:34</a> 我是說，真的只有在有人在乎的時候這才有意義，而如果你讓它完全自動化，自己甚至都不去看，那就像是，對，技術上它是座工廠，但它就是……我是說，它完全是自動駕駛狀態。那就像是，隨便啦。就像是，結果全看模型權重在做什麼。我當時人不在舊金山的 AIE，Armin 在，但據我所知，Steve Yegge 在那裡發表了一場演講，基本上叫大家他媽的慢一點，因為軟體工廠最後都會搞得一團糟。而且這話還是出自 Steve Yegge。OG Slopmaster 2000 本人都這麼說了，對吧？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2528s" target="_blank" rel="noopener noreferrer">42:08</a> 但他同時也支持現有的東西。他有點像是，兩邊的觀點他都主張了，這對我來說是整件事中最迷人的地方。我甚至不認為這兩者互相矛盾。我是說，我們一起工作。我們未來在某些特定問題領域，也許會有類似 dark factory 的東西。我絕對不排除這種可能。所以我們需要有人去實驗。我們需要有人去搞清楚這是否可行。而且再說一次，這必須要伴隨某種經濟價值。否則就只是自嗨。對。而且對某些問題來說，它會比對其他問題更適用，對吧？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2559s" target="_blank" rel="noopener noreferrer">42:39</a> 像是如果你，你知道的，純數學領域比方說對軟體工廠而言會更容易處理，比起……你知道，甚至像是一個，我不知道，即使是一個非常基礎的 CRUD 應用程式，我認為在目前這個階段也會很快分崩離析。所以，好吧。</p>
+<h2 id="sec-14">章節 14：累不累：AI psychosis 與收尾（42:56）</h2>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2576s" target="_blank" rel="noopener noreferrer">42:56</a> 還有 1 個問題。我想問個精彩一點的。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2582s" target="_blank" rel="noopener noreferrer">43:02</a> 所以如果大家，嗯，這個精彩的問題是什麼呢？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2589s" target="_blank" rel="noopener noreferrer">43:09</a> 好。我有點想問，你們大家現在感覺有多累壞了？因為我們工作轉變的方式太荒謬了。你知道，它從原本……好吧。我們先做一些決策，然後敲出一些漂亮的程式碼，接著再回去做策略性思考。而現在，我們就只是被迫一直處在這種策略性思考模式中。對。至少我是這麼感覺的。你們現在感覺如何？你們最近過得怎麼樣？你們比以前更累嗎？你們適應了嗎？目前感覺怎麼樣？</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2620s" target="_blank" rel="noopener noreferrer">43:40</a> Armin 你先開始。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2625s" target="_blank" rel="noopener noreferrer">43:45</a> 我在，不知道，2 週前，在網路上看到一篇文章，標題類似『AI 丈夫的妻子們』之類的。基本上就是這樣的情況。我把文章分享給我老婆，她說：『你就在這篇文章裡。』</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2640s" target="_blank" rel="noopener noreferrer">44:00</a> 你看，我就沒分享給我老婆。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2645s" target="_blank" rel="noopener noreferrer">44:05</a> 聽著，我想我絕對是睡眠不足。我絕對是，我甚至不知道為什麼。嗯，我是說，你也是新創公司的創辦人，所以我想這不見得純粹只是 AI 的事。但我不知道，這就像是，這同時是最酷的時代、最令人困惑的時代，也是最怪異的時代。所以你會有一種迫切感，想在它發生的當下去體驗這一切。結果就是，你給自己施加了更多壓力。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2676s" target="_blank" rel="noopener noreferrer">44:36</a> 但我還應付得來。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2679s" target="_blank" rel="noopener noreferrer">44:39</a> 很好。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2683s" target="_blank" rel="noopener noreferrer">44:43</a> 我是說，Armin 和我兩個人都是。還有 Peter Steinberger，從去年初就開始投入這件事了。而且我想我們在去年夏天就已經發作過我們的 AI 精神病（AI psychosis）了。那也是我睡很少的時候。現在我放鬆多了。實際上我認為在過去 8 個月甚至 12 個月裡，並沒有發生太多大事。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2704s" target="_blank" rel="noopener noreferrer">45:04</a> 我在任何地方都看不到什麼重大轉變了。我只看到很多人和組織仍然在苦苦掙扎，思考如何圍繞著這個新工具建立適當的工程流程。而且我還沒看到有任何東西、任何人真正成功。還沒有達到我能說『這就是全新模式、大家都該遵循』的程度。我是說，我也許該去看看你所有的教材內容，Matt。也許我，也許那裡面某處就有銀彈。但我認為像你這樣的人，還有 Human Layer 的那些人等等，我認為超級有價值。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2735s" target="_blank" rel="noopener noreferrer">45:35</a> 我認為那才是我們身為整個產業實際上需要前往的方向。所以那就是，我不再因為 AI 而失眠了。我不在乎了。我看夠了。對，我也是。我一直試著控制我的 AI 精神病。我想，你知道的，就像是我正在接受治療一樣。我覺得，我想我對此感覺還好。好吧大家，我們說過要進行到過 10 分。我不想再耽誤你們的時間了。非常感謝你們的參與。這真的很有趣。</p>
+<p><a href="https://www.youtube.com/watch?v=ZBTegd8DUZM&amp;t=2765s" target="_blank" rel="noopener noreferrer">46:05</a> 感謝你邀請我們，老兄。不客氣。我們有大約 1000 人在看線上直播，這太瘋狂了。非常感謝大家的收看參與，我們很快再見。</p>
+</article></main>
+<footer>
+<p>本頁為非官方繁體中文翻譯：由 AI 模型翻譯與審校（初譯 agy gemini-3.8-flash-high；修詞 Claude Sonnet），依機器自動字幕，未經人工校稿、未逐句對照原音，可能有誤；若有出入，以影片原音為準。影片與其內容版權屬原權利人，僅供閱讀與研究。</p>
+</footer>
+</div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="圖片放大檢視"><button type="button" aria-label="關閉放大檢視">關閉（Esc）</button><img src="" alt=""></div>
+<script>
+(function(){
+  var box=document.getElementById('lightbox'), big=box.querySelector('img'), btn=box.querySelector('button'), last=null;
+  function open(img){last=img;big.src=img.currentSrc||img.src;big.alt=img.alt;box.classList.add('is-open');btn.focus();}
+  function close(){box.classList.remove('is-open');big.removeAttribute('src');if(last){last.focus();}}
+  document.querySelectorAll('figure img').forEach(function(img){
+    img.addEventListener('click',function(){open(img);});
+    img.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(img);}});
+  });
+  box.addEventListener('click',function(e){if(e.target===box||e.target===btn){close();}});
+  document.addEventListener('keydown',function(e){
+    if(!box.classList.contains('is-open'))return;
+    if(e.key==='Escape'){close();}
+    if(e.key==='Tab'){e.preventDefault();btn.focus();}
+  });
+})();
+</script>
+</body>
+</html>
